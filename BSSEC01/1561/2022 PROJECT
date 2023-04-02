@@ -1,0 +1,119 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_STUDENTS 100
+
+// Define the student structure
+typedef struct {
+    char name[50];
+    int age;
+    char reg_no[10];
+    int year;
+    char course[20];
+    int grade;
+} Student;
+
+// Function to enter student details
+void enterDetails(Student* students, int num_students) {
+    for (int i = 0; i < num_students; i++) {
+        printf("Enter details for student %d:\n", i+1);
+        printf("Name: ");
+        scanf("%s", students[i].name);
+        printf("Age: ");
+        scanf("%d", &students[i].age);
+        printf("Registration Number: ");
+        scanf("%s", students[i].reg_no);
+        printf("Year of Study: ");
+        scanf("%d", &students[i].year);
+        printf("Course: ");
+        scanf("%s", students[i].course);
+        printf("Grade: ");
+        scanf("%d", &students[i].grade);
+        printf("\n");
+    }
+}
+
+// Function to sort students by grade in descending order
+void sortByGrade(Student* students, int num_students) {
+    for (int i = 0; i < num_students-1; i++) {
+        for (int j = i+1; j < num_students; j++) {
+            if (students[i].grade < students[j].grade) {
+                // Swap the two students
+                Student temp = students[i];
+                students[i] = students[j];
+                students[j] = temp;
+            }
+        }
+    }
+}
+
+// Function to display student details
+void displayDetails(Student* students, int num_students) {
+    for (int i = 0; i < num_students; i++) {
+        printf("Student %d:\n", i+1);
+        
+       //Prompt the user to enter students name 
+       
+        printf("Name: %s\n", students[i].name);
+        
+        //Prompt the user to enter students name 
+        
+        printf("Age: %d\n", students[i].age);
+        
+        //Prompt the user to enter students name reg.no
+        
+        printf("Registration Number: %s\n", students[i].reg_no);
+        
+        //Prompt the user to enter students year of study
+        
+        printf("Year of Study: %d\n", students[i].year);
+       
+       //Prompt the user to enter students course
+       
+        printf("Course: %s\n", students[i].course);
+        
+        //Prompt the user to enter students grade
+        
+        printf("Grade: %d\n", students[i].grade);
+        printf("\n");
+    }
+}
+
+int main() {
+    // Set password for the applock
+    char password[50] = "BSSEC01/1561/2022";
+
+    // Ask user to enter the password
+    char user_password[50];
+    printf("Enter the password to use this app: ");
+    scanf("%s", user_password);
+
+    // Verify the password
+    if (strcmp(password, user_password) != 0) {
+        printf("Invalid password. Exiting the app.\n");
+        return 0;
+    }
+
+    // Ask user to enter the number of students
+    int num_students;
+    printf("Enter the number of students: ");
+    scanf("%d", &num_students);
+
+    // Allocate memory for the students array
+    Student* students = malloc(num_students * sizeof(Student));
+
+    // Enter student details
+    enterDetails(students, num_students);
+
+    // Sort students by grade
+    sortByGrade(students, num_students);
+
+    // Display student details
+    displayDetails(students, num_students);
+
+    // Free memory allocated for students array
+    free(students);
+
+    return 0;
+}
